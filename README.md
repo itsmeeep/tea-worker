@@ -26,7 +26,13 @@ Thanks Bang
    ```javascript
       var response = await axios.get("https://raw.githubusercontent.com/clwkevin/LayerOS/main/addressteasepoliakyc.txt");
    ```
-
+4. random wallet and random max wallet between 150 - 200
+   ```javascript
+      var randoCounter = Math.floor(Math.random() * (200 - 150 + 1)) + 150;
+   ```
+   ```javascript
+      let rando = Math.floor(Math.random() * ((recipientAddresses.length - 1) - 0 + 1)) + 0;
+   ```
 
 # Tea Auto
 
