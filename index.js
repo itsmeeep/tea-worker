@@ -11,6 +11,7 @@ const BLOCK_EXPLORER_URL = "https://sepolia.tea.xyz/tx/";
 const CHAIN_ID = 10218;
 const DEFAULT_TOKEN_ADDRESS = "0x0000000000000000000000000000000000000000";
 const DELAY_HOUR = 10; // delay time in hours
+const LIMIT_WALLET = [350, 500];
 
 function readFileContent(filePath) {
   try {
@@ -163,7 +164,7 @@ async function sendToken(amountToSend) {
         }
         
         var counter = 0;
-        var randoCounter = Math.floor(Math.random() * (200 - 150 + 1)) + 150;
+        var randoCounter = Math.floor(Math.random() * (LIMIT_WALLET[1] - LIMIT_WALLET[0] + 1)) + LIMIT_WALLET[0];
         for (let j = 0; j < recipientAddresses.length; j++) {
           if (counter == randoCounter) { 
             console.log('[💡] Recipent count has reached limit' )
