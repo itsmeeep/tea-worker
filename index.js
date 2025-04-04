@@ -161,13 +161,23 @@ async function sendToken(amountToSend) {
           console.error("[❌] No valid recipient addresses found.");
           return;
         }
-      
-        for (const recipientAddress of recipientAddresses) {
-          console.log("[💎] Sending From: " + recordData[i].wallet);
+        
+        var counter = 0;
+        var randoCounter = Math.floor(Math.random() * (200 - 150 + 1)) + 150;
+        for (let j = 0; j < recipientAddresses.length; j++) {
+          if (counter == randoCounter) { 
+            console.log('[💡] Recipent count has reached limit' )
+            break; 
+          }
+          
+          let rando = Math.floor(Math.random() * ((recipientAddresses.length - 1) - 0 + 1)) + 0;
+
+          counter++;
+          console.log("[💎] Sending From: " + recordData[i].wallet + ' | ' + counter + ' to ' + randoCounter + ' wallets');
 
           await sendToRecipient(
             tokenContract,
-            recipientAddress,
+            recipientAddresses[rando],
             amountInWei,
             isNativeToken
           );
