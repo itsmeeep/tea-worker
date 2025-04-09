@@ -50,13 +50,6 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function delaySync(ms) {
-  const start = Date.now();
-  while (Date.now() - start < ms) {
-      // Block the thread until the delay is over
-  }
-}
-
 async function sendToRecipient(
   tokenContract,
   recipientAddress,
@@ -65,7 +58,7 @@ async function sendToRecipient(
 ) {
   try {
     console.log(
-      `[🚀] Sending ${
+      `[🚀 ] Sending ${
         isNativeToken ? "TEA" : "tokens"
       } to ${recipientAddress}...`
     );
@@ -78,8 +71,8 @@ async function sendToRecipient(
     } else {
       tx = await tokenContract.transfer(recipientAddress.trim(), amountInWei);
     }
-    console.log(`[✅] Transaction sent! Hash: ${tx.hash}`);
-    console.log(`[🔗] View on Block Explorer: ${BLOCK_EXPLORER_URL}${tx.hash}`);
+    console.log(`[✅ ] Transaction sent! Hash: ${tx.hash}`);
+    console.log(`[🔗 ] View on Block Explorer: ${BLOCK_EXPLORER_URL}${tx.hash}`);
   } catch (error) {
     console.error(
       `[❌] Error sending to ${recipientAddress}: ${error.message}`
@@ -109,17 +102,17 @@ async function sendToken(amountToSend) {
           if (response.data) {
             recipientAddresses = response.data.split('\n').map(addr => addr.trim().toLowerCase());
           } else {
-            console.error("[❌] ERROR: Tidak dapat mengunduh data alamat KYC.");
+            console.error("[❌ ] ERROR: Tidak dapat mengunduh data alamat KYC.");
             recipientAddresses = [];
           }
 
         } catch (error) {
-          console.error("[❌] Failed to read input files. Exiting...");
+          console.error("[❌ ] Failed to read input files. Exiting...");
           return;
         }
       
         if (!RPC_URL || !privateKey) {
-          console.error("[❌] Missing required parameters: RPC URL or private key.");
+          console.error("[❌ ] Missing required parameters: RPC URL or private key.");
           return;
         }
       
@@ -159,7 +152,7 @@ async function sendToken(amountToSend) {
       
         recipientAddresses = validateAddresses(recipientAddresses);
         if (recipientAddresses.length === 0) {
-          console.error("[❌] No valid recipient addresses found.");
+          console.error("[❌ ] No valid recipient addresses found.");
           return;
         }
         
@@ -167,14 +160,14 @@ async function sendToken(amountToSend) {
         var randoCounter = Math.floor(Math.random() * (LIMIT_WALLET[1] - LIMIT_WALLET[0] + 1)) + LIMIT_WALLET[0];
         for (let j = 0; j < recipientAddresses.length; j++) {
           if (counter == randoCounter) { 
-            console.log('[💡] Recipent count has reached limit' )
+            console.log('[💡 ] Recipent count has reached limit' )
             break; 
           }
           
           let rando = Math.floor(Math.random() * ((recipientAddresses.length - 1) - 0 + 1)) + 0;
 
           counter++;
-          console.log("[💎] Sending From: " + recordData[i].wallet + ' | ' + counter + ' to ' + randoCounter + ' wallets');
+          console.log("[💎 ] Sending From: " + recordData[i].wallet + ' | ' + counter + ' to ' + randoCounter + ' wallets');
 
           await sendToRecipient(
             tokenContract,
@@ -189,10 +182,10 @@ async function sendToken(amountToSend) {
       let lastSync = now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear();
       writeFileContent('date.txt', lastSync);
     } else {
-      console.log("[🚫] Today process is already executed.");
+      console.log("[🚫 ] Today process is already executed.");
     }
 
-    console.log("[⌚️] Last Sync: ", now);
+    console.log("[⌚️ ] Last Sync: ", now);
     let cooldown = 1000 * 60 * 60 * DELAY_HOUR;
 
     await delay(cooldown);
@@ -204,9 +197,9 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.question("[💰] Enter the amount of tokens to send: ", (amountToSend) => {
+rl.question("[💰 ] Enter the amount of tokens to send: ", (amountToSend) => {
   if (!amountToSend || isNaN(amountToSend) || Number(amountToSend) <= 0) {
-    console.error("[❌] Invalid amount entered. Exiting...");
+    console.error("[❌ ] Invalid amount entered. Exiting...");
     rl.close();
     return;
   }
