@@ -11,7 +11,7 @@ const BLOCK_EXPLORER_URL = "https://sepolia.tea.xyz/tx/";
 const CHAIN_ID = 10218;
 const DEFAULT_TOKEN_ADDRESS = "0x0000000000000000000000000000000000000000";
 const DELAY_HOUR = 10; // delay time in hours
-const LIMIT_WALLET = [350, 500];
+const LIMIT_WALLET = [103, 114];
 
 function readFileContent(filePath) {
   try {
@@ -25,15 +25,15 @@ function readFileContent(filePath) {
 }
 
 function writeFileContent(filePath, data) {
-    try {
-        return fs.writeFileSync(filePath, data);
-    } catch (error) {
-        console.log(error)
-        console.warn(
-            `[⚠️  ] File ${filePath} not found or unwriteable. Using default.`
-        );
-        return "";
-    }
+  try {
+    return fs.writeFileSync(filePath, data);
+  } catch (error) {
+    console.log(error)
+    console.warn(
+        `[⚠️  ] File ${filePath} not found or unwriteable. Using default.`
+    );
+    return "";
+  }
 }
 
 function validateAddresses(addresses) {
