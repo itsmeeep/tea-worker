@@ -88,7 +88,10 @@ async function sendToken(amountToSend) {
     let historyDay = readFileContent('date.txt');
     let currentDay = now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear();
 
-    if (historyDay != currentDay) {
+    let deadline = new Date('2025-04-20').toISOString().split('T')[0];
+    let today = new Date().toISOString().split('T')[0];
+
+    if (historyDay != currentDay && deadline < today) {
 
       // jalankan proses
       var recordData = JSON.parse(fs.readFileSync('token.json', 'utf8'));
@@ -182,7 +185,7 @@ async function sendToken(amountToSend) {
       let lastSync = now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear();
       writeFileContent('date.txt', lastSync);
     } else {
-      console.log("[🚫 ] Today process is already executed.");
+      console.log("[🚫 ] Today process is already executed or its already deadline");
     }
 
     console.log("[⌚️ ] Last Sync: ", now);
